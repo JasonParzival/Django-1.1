@@ -6,7 +6,7 @@ class Product(models.Model):
     price = models.DecimalField("Цена", max_digits=10, decimal_places=2)
     description = models.TextField("Описание")
     quantity = models.IntegerField("Количество на складе")
-    category = models.ForeignKey("Category", on_delete=models.CASCADE, null=True)
+    category = models.ForeignKey("Category", on_delete=models.CASCADE, null=True, verbose_name="Категория")
     
     class Meta:
         verbose_name = "Товар"
@@ -43,7 +43,7 @@ class Customer(models.Model):
 class Order(models.Model):
     date = models.DateField("Дата заказа")
     status = models.TextField("Статус")
-    customer = models.ForeignKey("Customer", on_delete=models.CASCADE, null=True)
+    customer = models.ForeignKey("Customer", on_delete=models.CASCADE, null=True, verbose_name="Клиент")
     
     class Meta:
         verbose_name = "Заказ"
@@ -53,8 +53,8 @@ class Order(models.Model):
         return str(self.date)
 
 class OrderDetail(models.Model):
-    order = models.ForeignKey("Order", on_delete=models.CASCADE, null=True)
-    product = models.ForeignKey("Product", on_delete=models.CASCADE, null=True)
+    order = models.ForeignKey("Order", on_delete=models.CASCADE, null=True, verbose_name="Заказ")
+    product = models.ForeignKey("Product", on_delete=models.CASCADE, null=True, verbose_name="Продукт")
     quantity = models.IntegerField("Количество")
     
     class Meta:
